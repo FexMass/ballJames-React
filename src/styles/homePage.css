@@ -1,0 +1,44 @@
+.m-2 {
+    padding: 30px 0 0 100px;
+}
+
+.btn {
+    margin-top: 30px;
+    width: 140px;
+}
+
+.anchor {
+    padding-top: 30px;
+    font-size: 30px;
+}
+
+h1,
+div,
+p {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    word-spacing: 1.2px;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+    text-shadow: 1px 1px #fe4902, 2px 2px #fe4902, 3px 3px #fe4902;
+    padding-top: 10px;
+    text-align: center;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: url('../images/homeImage.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+

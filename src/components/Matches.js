@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 const Matches = () => {
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -24,6 +25,7 @@ const Matches = () => {
 	let footballPlayerList = [];
 
 	if (!loading) {
+
 		footballPlayerList = data.finalResult.footballPlayerList;
 		halfTimeInformation = data.finalResult.halfTimeInformationList;
 	}
