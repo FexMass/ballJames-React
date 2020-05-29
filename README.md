@@ -14,7 +14,11 @@ Project is developed for Job purposes and its not completed 100%, but it is work
 
 ## Installation and Setup Instructions
 
-#### Example:  
+## Note!
+
+In order for this application to work properly Java/Spring Boot repository: https://github.com/FexMass/ballJames-test should be cloned/downloded and ran. 
+
+#### Setup:  
 
 Clone/download down this repository. `node` and `npm` needs to be installed globally on your machine.  
 
@@ -38,9 +42,7 @@ To Visit Game information page:
 
 `localhost:3000/gameInformation` 
 
-## Note!
 
-In order for this application to work properly Java/Spring Boot repository "FexMass/ballJames-test" should be cloned/downloded and ran. 
 
 ## Reflection
 
