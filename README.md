@@ -38,7 +38,7 @@ To Visit Game information page:
 
 `localhost:3000/gameInformation` 
 
-##Note
+## Note!
 
 In order for this application to work properly Java/Spring Boot repository should be cloned/downloded and ran
 
@@ -51,7 +51,7 @@ In order for this application to work properly Java/Spring Boot repository shoul
   - What tools did you use to implement this project?
       - This might seem obvious because you are IN this codebase, but to all other humans now is the time to talk about why you chose webpack instead of create react app, or D3, or vanilla JS instead of a framework etc. Brag about your choices and justify them here.  
 
-#### Example:  
+#### Purpose:  
 
 This was less than 1 week long project. His purpose is to demonstrate developer skills for handling Front end.
 
