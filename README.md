@@ -40,16 +40,13 @@ To Visit Game information page:
 
 ## Note!
 
-In order for this application to work properly Java/Spring Boot repository should be cloned/downloded and ran
+In order for this application to work properly Java/Spring Boot repository "FexMass/ballJames-test" should be cloned/downloded and ran. 
 
 ## Reflection
 
-  - What was the context for this project? (ie: was this a side project? was this for Turing? was this for an experiment?)
-  - What did you set out to build?
-  - Why was this project challenging and therefore a really good learning experience?
-  - What were some unexpected obstacles?
-  - What tools did you use to implement this project?
-      - This might seem obvious because you are IN this codebase, but to all other humans now is the time to talk about why you chose webpack instead of create react app, or D3, or vanilla JS instead of a framework etc. Brag about your choices and justify them here.  
+Improvement of this project of course can be done. Better code design, usage of different libraries, etc.
+For design matter, this app has simple design just to not be plain and ugly, so design can be improved.
+For functionality matter, application have endless possibilities for improvement i that section.
 
 #### Purpose:  
 
