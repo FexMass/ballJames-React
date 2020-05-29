@@ -69,19 +69,25 @@ const Matches = () => {
 			<h3 className='text-center mt-3'>
 				<b>GAME INFORMATION</b>
 			</h3><br />
+
 			{loading ? (
 				spinner
 			) : (
 					<div className="parentElement">
 						<div>
+							<div>
+								<h3>Date of match</h3>
+								<p>{convertDateAndTime(halfTimeInformation[0].start, 0)}</p>
+							</div>
+							<br />
 							<h3>First half</h3>
-							<p>Start: {convertDateAndTime(halfTimeInformation[0].start)}</p>
-							<p>End: {convertDateAndTime(halfTimeInformation[0].end)}</p>
-							<br/>
+							<p>Start: {convertDateAndTime(halfTimeInformation[0].start, 1)}</p>
+							<p>End: {convertDateAndTime(halfTimeInformation[0].end, 1)}</p>
+							<br />
 							<h3>Second half</h3>
-							<p>Start: {convertDateAndTime(halfTimeInformation[1].start)}</p>
-							<p>End: {convertDateAndTime(halfTimeInformation[1].end)}</p>
-							<br/>
+							<p>Start: {convertDateAndTime(halfTimeInformation[1].start, 1)}</p>
+							<p>End: {convertDateAndTime(halfTimeInformation[1].end, 1)}</p>
+							<br />
 							<h3>Other information</h3>
 							<p>Location: {halfTimeInformation[1].location}</p>
 							<p>Field size: {halfTimeInformation[1].length + " x " + halfTimeInformation[1].width + " [m]"}</p>
@@ -112,7 +118,7 @@ const Matches = () => {
 	);
 };
 
-let convertDateAndTime = (params) => {
+let convertDateAndTime = (params, indexs) => {
 	let d = new Date(params);
 	let month = '' + (d.getMonth() + 1);
 	let day = '' + d.getDate();
@@ -126,8 +132,11 @@ let convertDateAndTime = (params) => {
 	if (day.length < 2)
 		day = '0' + day;
 
-	return 'Date: ' + [year, month, day].join('-') + '\n' +
-		'Time: ' + [hours, minutes, seconds].join(':');
+	if (indexs === 0) {
+		return [year, month, day].join('-');
+	} else {
+		return [hours, minutes, seconds].join(':');
+	}
 }
 
 export default Matches;
