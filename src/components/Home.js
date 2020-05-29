@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/homePage.css';
+import Spinner from '../components/UI/Spinner/Spinner.js';
 
 const Home = () => {
+    const [spinner, setSpinner] = useState(null);
+    const [loading, setLoading] = useState(true);
     let data = new FormData();
     const appendData = (e) => {
         data.append('file', e.target.files[0]);
@@ -14,7 +17,13 @@ const Home = () => {
             headers: { 'Content-Type': "application/json; charset=utf8" }
         }).then(
             (response) => {
-                console.log(response);
+                setSpinner(<Spinner />);
+
+					const timer = setTimeout(() => {
+                        setSpinner(null);
+                        setLoading(false);
+					}, 0);
+					return () => clearTimeout(timer);
             },
             (error) => {
                 console.log(error);
@@ -41,11 +50,15 @@ const Home = () => {
                     onClick={uploadFilesOnServer} >
                     Upload </button>
             </div>
+            {loading ? (
+				spinner
+			) : (
                 <a href='/gameInformation'>
                     <div className="anchor">
                         Check game statistics
                     </div>
                 </a>
+            )}
         </div>
     );
 };

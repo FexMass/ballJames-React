@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import Spinner from '../components/UI/Spinner/Spinner.js';
 
 const Matches = () => {
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [currentTeam, setCurrentTeam] = useState(null);
+	const [spinner, setSpinner] = useState(null);
+	const [halfTimeInformation, setHalftimeInformation] = useState(null);
+	const [footballPlayer, setFootballPlayer] = useState(null);
 	useEffect(() => {
 		axios
 			.get('http://localhost:8080/gameInformation')
 			.then(
 				(response) => {
-					setData(response.data);
-					setLoading(false);
+					setSpinner(<Spinner />);
+
+					const timer = setTimeout(() => {
+						setData(response.data);
+						setHalftimeInformation(response.data.finalResult.halfTimeInformationList);
+						setFootballPlayer(response.data.finalResult.footballPlayerList);
+						setLoading(false);
+						setSpinner(null);
+					}, 2000);
+					return () => clearTimeout(timer);
 				},
 				(error) => {
 					console.log(error);
 				}
 			);
 	}, []);
-
-	let halfTimeInformation = [];
-	let footballPlayerList = [];
-
-	if (!loading) {
-
-		footballPlayerList = data.finalResult.footballPlayerList;
-		halfTimeInformation = data.finalResult.halfTimeInformationList;
-	}
 
 	const toggleRow = (index, team) => {
 		setCurrentIndex(index);
@@ -66,43 +68,52 @@ const Matches = () => {
 		<div className="container">
 			<h3 className='text-center mt-3'>
 				<b>GAME INFORMATION</b>
-			</h3><br/>
-			<div>
-				{halfTimeInformation.map((data) => (
-					<>
-						<p>Half time start: {convertTime(data.start)}</p>
-						<p>Half time end: {convertTime(data.end)}</p>
-						<p>Location: {data.location}</p>
-						<p>Field size: {data.length + " " + data.width}</p>
-					</>
-				))}
-			</div>
-			<table className='table table-condensed table-hover'>
-				<thead>
-					<tr>
-						<th>Team</th>
-					</tr>
-				</thead>
-				<tbody>
-					{footballPlayerList.map((footballPlayer, i) => (
-						<>
-							<tr
-								key={i}
-								onClick={() => toggleRow(i, footballPlayer)}
-								style={{ cursor: 'pointer' }}>							
-								<td>{footballPlayer.teamId}</td>			
-							</tr>
-							{accordion(i)}
-						</>
-					))}
-				</tbody>
-			</table>
+			</h3><br />
+			{loading ? (
+				spinner
+			) : (
+					<div className="parentElement">
+						<div>
+							<h3>First half</h3>
+							<p>Start: {convertDateAndTime(halfTimeInformation[0].start)}</p>
+							<p>End: {convertDateAndTime(halfTimeInformation[0].end)}</p>
+							<br/>
+							<h3>Second half</h3>
+							<p>Start: {convertDateAndTime(halfTimeInformation[1].start)}</p>
+							<p>End: {convertDateAndTime(halfTimeInformation[1].end)}</p>
+							<br/>
+							<h3>Other information</h3>
+							<p>Location: {halfTimeInformation[1].location}</p>
+							<p>Field size: {halfTimeInformation[1].length + " x " + halfTimeInformation[1].width + " [m]"}</p>
+						</div>
+						<table className='table table-condensed table-hover'>
+							<thead>
+								<tr>
+									<th>Team</th>
+								</tr>
+							</thead>
+							<tbody>
+								{footballPlayer.map((footballPlayer, i) => (
+									<>
+										<tr
+											key={i}
+											onClick={() => toggleRow(i, footballPlayer)}
+											style={{ cursor: 'pointer' }}>
+											<td>{footballPlayer.teamId}</td>
+										</tr>
+										{accordion(i)}
+									</>
+								))}
+							</tbody>
+						</table>
+					</div>
+				)}
 		</div>
 	);
 };
 
-function convertTime(params) {
-	let  d = new Date(params);
+let convertDateAndTime = (params) => {
+	let d = new Date(params);
 	let month = '' + (d.getMonth() + 1);
 	let day = '' + d.getDate();
 	let year = d.getFullYear();
@@ -110,12 +121,12 @@ function convertTime(params) {
 	let minutes = d.getMinutes();
 	let seconds = d.getSeconds();
 
-	if (month.length < 2) 
-	month = '0' + month;
-	if (day.length < 2) 
-	day = '0' + day;
+	if (month.length < 2)
+		month = '0' + month;
+	if (day.length < 2)
+		day = '0' + day;
 
-	return 'Date: ' + [year, month, day].join('-') +
+	return 'Date: ' + [year, month, day].join('-') + '\n' +
 		'Time: ' + [hours, minutes, seconds].join(':');
 }
 
