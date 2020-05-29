@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/homePage.css';
 import Spinner from '../components/UI/Spinner/Spinner.js';
@@ -12,20 +12,20 @@ const Home = () => {
     };
 
     const uploadFilesOnServer = () => {
-        console.log(data);
+        setSpinner(<Spinner />);
         axios.post('http://localhost:8080/upload', data, {
             headers: { 'Content-Type': "application/json; charset=utf8" }
         }).then(
             (response) => {
-                setSpinner(<Spinner />);
-
 					const timer = setTimeout(() => {
                         setSpinner(null);
                         setLoading(false);
-					}, 0);
-					return () => clearTimeout(timer);
+					}, 2000);
+                    return () => clearTimeout(timer);
             },
             (error) => {
+                setLoading(true);
+                setSpinner(null);
                 console.log(error);
             }
         );
